@@ -39,13 +39,15 @@ public class QuickSort
     ArrRange range;
 
 
-    public void NextStep()
+    public void Steps()
     {
         switch (step) {
+
             case -1 -> {
                 range = stack.pop();
                 step = 0;
             }
+
             // находим опорный элемент
             case 0 -> {
                 middle = (range.low + range.high) >> 1;
@@ -54,18 +56,21 @@ public class QuickSort
                 high = range.high;
                 step = 1;
             }
-            // ишем слева элемент больше опорного
+
+            // ищем слева элемент больше опорного
             case 1 -> {
                 while (a[low] < prop) low++;
                 temp1 = a[low];
                 step = 2;
             }
-            // ишем справа элемент меньше опорного
+
+            // ищем справа элемент меньше опорного
             case 2 -> {
                 while (a[high] > prop) high--;
                 temp2 = a[high];
                 step = 3;
             }
+
             // меняем местами
             case 3 -> {
                 if (low <= high) {
@@ -77,6 +82,7 @@ public class QuickSort
                 }
                 step = low <= high ? 1 : 4;
             }
+
             // разделить массив на 2 части
             case 4 -> {
                 if (low < middle) {
@@ -95,6 +101,7 @@ public class QuickSort
                     if (high > range.low) stack.push(new ArrRange(range.low, high));
                     range.low = low;
                 }
+
                 step = (range.low < range.high) ? 0 : (stack.size() > 0) ? -1 : 5;
             }
         }
